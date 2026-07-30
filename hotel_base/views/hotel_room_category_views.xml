@@ -1,0 +1,81 @@
+<odoo>
+    <record id="hotel_room_category_view_list" model="ir.ui.view">
+        <field name="name">hotel.room.category.list</field>
+        <field name="model">hotel.room.category</field>
+        <field name="arch" type="xml">
+            <list string="Room Categories">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="property_id"/>
+                <field name="capacity_adult"/>
+                <field name="capacity_child"/>
+                <field name="base_price"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="hotel_room_category_view_form" model="ir.ui.view">
+        <field name="name">hotel.room.category.form</field>
+        <field name="model">hotel.room.category</field>
+        <field name="arch" type="xml">
+            <form string="Room Category">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="property_id"/>
+                            <field name="company_id" readonly="1"/>
+                            <field name="code"/>
+                            <field name="name"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="capacity_adult"/>
+                            <field name="capacity_child"/>
+                            <field name="base_price"/>
+                            <field name="extra_bed_allowed"/>
+                            <field name="extra_bed_price" invisible="not extra_bed_allowed"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Amenities">
+                            <field name="amenity_ids" widget="many2many_tags"/>
+                        </page>
+                        <page string="Taxes">
+                            <field name="tax_ids" widget="many2many_tags"/>
+                        </page>
+                        <page string="Description">
+                            <field name="description"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="hotel_room_category_view_search" model="ir.ui.view">
+        <field name="name">hotel.room.category.search</field>
+        <field name="model">hotel.room.category</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="property_id"/>
+                <field name="company_id"/>
+                <filter string="Active" name="filter_active" domain="[('active', '=', True)]"/>
+                <filter string="Archived" name="filter_archived" domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter string="Property" name="group_by_property" context="{'group_by': 'property_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="hotel_room_category_action" model="ir.actions.act_window">
+        <field name="name">Room Categories</field>
+        <field name="res_model">hotel.room.category</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="hotel_room_category_view_search"/>
+        <field name="context">{}</field>
+    </record>
+</odoo>

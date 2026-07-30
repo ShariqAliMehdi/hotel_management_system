@@ -1,12 +1,15 @@
 <odoo>
-    <record id="hotel_building_view_tree" model="ir.ui.view">
+    <record id="hotel_building_view_list" model="ir.ui.view">
         <field name="name">hotel.building.list</field>
         <field name="model">hotel.building</field>
         <field name="arch" type="xml">
             <list string="Buildings">
+                <field name="sequence"/>
+                <field name="code"/>
                 <field name="name"/>
                 <field name="property_id"/>
-                <field name="code"/>
+                <field name="company_id"/>
+                <field name="floor_count"/>
                 <field name="active"/>
             </list>
         </field>
@@ -18,18 +21,33 @@
         <field name="arch" type="xml">
             <form string="Building">
                 <header>
-                    <field name="active" widget="boolean_toggle"/>
+                    <button name="action_view_floors" type="object" class="oe_stat_button" icon="fa-layer-group">
+                        <field name="floor_count" string="Floors" widget="statinfo"/>
+                    </button>
                 </header>
                 <sheet>
                     <group>
-                        <field name="property_id" required="1"/>
-                        <field name="name" required="1"/>
-                        <field name="code"/>
-                        <field name="active" invisible="1"/>
+                        <group>
+                            <field name="property_id"/>
+                            <field name="company_id" readonly="1"/>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="code"/>
+                            <field name="name"/>
+                        </group>
                     </group>
                     <notebook>
                         <page string="Floors">
-                            <field name="floor_ids" context="{'default_property_id': property_id}"/>
+                            <field name="floor_ids" context="{'default_property_id': property_id, 'default_building_id': id}">
+                                <list editable="bottom">
+                                    <field name="sequence"/>
+                                    <field name="code"/>
+                                    <field name="name"/>
+                                    <field name="active"/>
+                                </list>
+                            </field>
                         </page>
                     </notebook>
                 </sheet>
@@ -38,16 +56,29 @@
         </field>
     </record>
 
-    <record id="hotel_building_search" model="ir.ui.view">
+    <record id="hotel_building_view_search" model="ir.ui.view">
         <field name="name">hotel.building.search</field>
         <field name="model">hotel.building</field>
         <field name="arch" type="xml">
             <search>
                 <field name="name"/>
+                <field name="code"/>
                 <field name="property_id"/>
-                <filter string="Active" name="active" domain="[('active','=',True)]"/>
-                <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+                <field name="company_id"/>
+                <filter string="Active" name="filter_active" domain="[('active', '=', True)]"/>
+                <filter string="Archived" name="filter_archived" domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter string="Property" name="group_by_property" context="{'group_by': 'property_id'}"/>
+                <filter string="Company" name="group_by_company" context="{'group_by': 'company_id'}"/>
             </search>
         </field>
+    </record>
+
+    <record id="hotel_building_action" model="ir.actions.act_window">
+        <field name="name">Buildings</field>
+        <field name="res_model">hotel.building</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="hotel_building_view_search"/>
+        <field name="context">{}</field>
     </record>
 </odoo>

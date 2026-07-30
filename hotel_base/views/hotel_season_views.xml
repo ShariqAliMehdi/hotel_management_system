@@ -1,0 +1,72 @@
+<odoo>
+    <record id="hotel_season_view_list" model="ir.ui.view">
+        <field name="name">hotel.season.list</field>
+        <field name="model">hotel.season</field>
+        <field name="arch" type="xml">
+            <list string="Hotel Seasons">
+                <field name="name"/>
+                <field name="property_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="season_type"/>
+                <field name="price_factor"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="hotel_season_view_form" model="ir.ui.view">
+        <field name="name">hotel.season.form</field>
+        <field name="model">hotel.season</field>
+        <field name="arch" type="xml">
+            <form string="Hotel Season">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="property_id"/>
+                            <field name="company_id" readonly="1"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="season_type"/>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="price_factor"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="hotel_season_view_search" model="ir.ui.view">
+        <field name="name">hotel.season.search</field>
+        <field name="model">hotel.season</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="property_id"/>
+                <field name="company_id"/>
+                <field name="season_type"/>
+                <filter string="Active" name="filter_active" domain="[('active', '=', True)]"/>
+                <filter string="Archived" name="filter_archived" domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter string="Property" name="group_by_property" context="{'group_by': 'property_id'}"/>
+                <filter string="Season Type" name="group_by_season_type" context="{'group_by': 'season_type'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="hotel_season_action" model="ir.actions.act_window">
+        <field name="name">Hotel Seasons</field>
+        <field name="res_model">hotel.season</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="hotel_season_view_search"/>
+        <field name="context">{}</field>
+    </record>
+</odoo>

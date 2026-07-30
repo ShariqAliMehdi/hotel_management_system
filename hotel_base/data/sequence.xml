@@ -1,9 +1,8 @@
 <odoo>
-    <!-- Base module sequences: used by future modules when they reference hotel_base codes -->
     <record id="seq_hotel_property" model="ir.sequence">
         <field name="name">Hotel Property</field>
         <field name="code">hotel_base.hotel_property</field>
-        <field name="prefix">PROP/%(year)s/</field>
+        <field name="prefix">HTL/PROP/%(year)s/</field>
         <field name="padding">5</field>
         <field name="company_id" eval="False"/>
     </record>

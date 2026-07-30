@@ -1,0 +1,12 @@
+<odoo>
+    <menuitem id="hotel_base_root_menu" name="Hotel Management" sequence="20"/>
+    <menuitem id="hotel_base_configuration_menu" name="Configuration" parent="hotel_base_root_menu" sequence="10"/>
+
+    <menuitem id="hotel_property_menu" name="Properties" parent="hotel_base_configuration_menu" action="hotel_property_action" sequence="10"/>
+    <menuitem id="hotel_building_menu" name="Buildings" parent="hotel_base_configuration_menu" action="hotel_building_action" sequence="20"/>
+    <menuitem id="hotel_floor_menu" name="Floors" parent="hotel_base_configuration_menu" action="hotel_floor_action" sequence="30"/>
+    <menuitem id="hotel_room_category_menu" name="Room Categories" parent="hotel_base_configuration_menu" action="hotel_room_category_action" sequence="40"/>
+    <menuitem id="hotel_amenity_menu" name="Amenities" parent="hotel_base_configuration_menu" action="hotel_amenity_action" sequence="50"/>
+    <menuitem id="hotel_tax_menu" name="Taxes" parent="hotel_base_configuration_menu" action="hotel_tax_action" sequence="60"/>
+    <menuitem id="hotel_season_menu" name="Seasons" parent="hotel_base_configuration_menu" action="hotel_season_action" sequence="70"/>
+</odoo>

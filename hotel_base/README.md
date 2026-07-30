@@ -1,15 +1,32 @@
-# Hotel Base (Odoo 19)
+# Hotel Base
 
-Core configuration models for the Hotel Management ERP:
-- Hotel Properties (stored in `hotel.property`, linked to `res.company`)
-- Buildings, Floors
-- Room Types and Amenities
-- Hotel Taxes and Seasonal Calendars
+## Overview
+`hotel_base` is the foundation addon for Odoo 19 Hotel Management.
+It provides:
+
+- Hotel Properties
+- Buildings
+- Floors
+- Room Categories
+- Amenities
+- Hotel Taxes
+- Seasonal Pricing Definitions
+
+## Features
+- Multi-company support
+- Chatter and activity tracking
+- Property sequence generation
+- Company-based access rules
+- Smart buttons and configuration menus
+- Demo data and unit tests
 
 ## Installation
-1. Copy `hotel_base` into your Odoo addons path.
-2. Update apps list and install **Hotel Base**.
-3. Load demo data if desired.
+1. Copy `hotel_base` into your custom addons path.
+2. Restart Odoo.
+3. Update Apps List.
+4. Install **Hotel Base**.
 
 ## Notes
-- Multi-company is enforced using record rules based on `res.company` / `user.company_id`.
+- Built for **Odoo 19**
+- Uses `<list>` views, inline modifiers, `<chatter/>`
+- Uses Odoo 19 group privilege structure

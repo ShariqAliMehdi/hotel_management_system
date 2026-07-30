@@ -1,5 +1,5 @@
 <odoo>
-    <record id="hotel_amenity_view_tree" model="ir.ui.view">
+    <record id="hotel_amenity_view_list" model="ir.ui.view">
         <field name="name">hotel.amenity.list</field>
         <field name="model">hotel.amenity</field>
         <field name="arch" type="xml">
@@ -15,13 +15,10 @@
         <field name="model">hotel.amenity</field>
         <field name="arch" type="xml">
             <form string="Amenity">
-                <header>
-                    <field name="active" widget="boolean_toggle"/>
-                </header>
                 <sheet>
                     <group>
-                        <field name="name" required="1"/>
-                        <field name="active" invisible="1"/>
+                        <field name="name"/>
+                        <field name="active"/>
                     </group>
                     <group>
                         <field name="description"/>
@@ -32,15 +29,23 @@
         </field>
     </record>
 
-    <record id="hotel_amenity_search" model="ir.ui.view">
+    <record id="hotel_amenity_view_search" model="ir.ui.view">
         <field name="name">hotel.amenity.search</field>
         <field name="model">hotel.amenity</field>
         <field name="arch" type="xml">
             <search>
                 <field name="name"/>
-                <filter string="Active" name="active" domain="[('active','=',True)]"/>
-                <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+                <filter string="Active" name="filter_active" domain="[('active', '=', True)]"/>
+                <filter string="Archived" name="filter_archived" domain="[('active', '=', False)]"/>
             </search>
         </field>
+    </record>
+
+    <record id="hotel_amenity_action" model="ir.actions.act_window">
+        <field name="name">Amenities</field>
+        <field name="res_model">hotel.amenity</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="hotel_amenity_view_search"/>
+        <field name="context">{}</field>
     </record>
 </odoo>

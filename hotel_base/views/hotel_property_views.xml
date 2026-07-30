@@ -1,1 +1,161 @@
-# (already provided above)
+<odoo>
+    <record id="hotel_property_view_list" model="ir.ui.view">
+        <field name="name">hotel.property.list</field>
+        <field name="model">hotel.property</field>
+        <field name="arch" type="xml">
+            <list string="Hotel Properties">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="company_id"/>
+                <field name="city"/>
+                <field name="country_id"/>
+                <field name="checkin_time"/>
+                <field name="checkout_time"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="hotel_property_view_form" model="ir.ui.view">
+        <field name="name">hotel.property.form</field>
+        <field name="model">hotel.property</field>
+        <field name="arch" type="xml">
+            <form string="Hotel Property">
+                <header>
+                    <button name="action_view_buildings" type="object" class="oe_stat_button" icon="fa-building">
+                        <field name="building_count" string="Buildings" widget="statinfo"/>
+                    </button>
+                    <button name="action_view_floors" type="object" class="oe_stat_button" icon="fa-layer-group">
+                        <field name="floor_count" string="Floors" widget="statinfo"/>
+                    </button>
+                    <button name="action_view_room_categories" type="object" class="oe_stat_button" icon="fa-bed">
+                        <field name="room_category_count" string="Room Categories" widget="statinfo"/>
+                    </button>
+                    <button name="action_view_seasons" type="object" class="oe_stat_button" icon="fa-calendar">
+                        <field name="season_count" string="Seasons" widget="statinfo"/>
+                    </button>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <div class="text-muted">
+                            <field name="code" readonly="1"/>
+                        </div>
+                    </div>
+
+                    <group>
+                        <group>
+                            <field name="company_id"/>
+                            <field name="currency_id" readonly="1"/>
+                            <field name="partner_id"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="phone"/>
+                            <field name="email"/>
+                            <field name="website"/>
+                            <field name="country_id"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Address">
+                            <group>
+                                <field name="street"/>
+                                <field name="street2"/>
+                                <field name="city"/>
+                                <field name="state_id"/>
+                                <field name="zip"/>
+                                <field name="country_id"/>
+                            </group>
+                        </page>
+                        <page string="Operations">
+                            <group>
+                                <field name="checkin_time"/>
+                                <field name="checkout_time"/>
+                            </group>
+                            <group>
+                                <field name="amenity_ids" widget="many2many_tags"/>
+                                <field name="tax_ids" widget="many2many_tags"/>
+                            </group>
+                        </page>
+                        <page string="Buildings">
+                            <field name="building_ids" context="{'default_property_id': id}">
+                                <list editable="bottom">
+                                    <field name="sequence"/>
+                                    <field name="code"/>
+                                    <field name="name"/>
+                                    <field name="active"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Floors">
+                            <field name="floor_ids" context="{'default_property_id': id}">
+                                <list editable="bottom">
+                                    <field name="building_id"/>
+                                    <field name="sequence"/>
+                                    <field name="code"/>
+                                    <field name="name"/>
+                                    <field name="active"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Room Categories">
+                            <field name="room_category_ids" context="{'default_property_id': id}">
+                                <list editable="bottom">
+                                    <field name="code"/>
+                                    <field name="name"/>
+                                    <field name="capacity_adult"/>
+                                    <field name="capacity_child"/>
+                                    <field name="base_price"/>
+                                    <field name="active"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Seasons">
+                            <field name="season_ids" context="{'default_property_id': id}">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="date_start"/>
+                                    <field name="date_end"/>
+                                    <field name="season_type"/>
+                                    <field name="price_factor"/>
+                                    <field name="active"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="hotel_property_view_search" model="ir.ui.view">
+        <field name="name">hotel.property.search</field>
+        <field name="model">hotel.property</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="company_id"/>
+                <field name="country_id"/>
+                <filter string="Active" name="filter_active" domain="[('active', '=', True)]"/>
+                <filter string="Archived" name="filter_archived" domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter string="Company" name="group_by_company" context="{'group_by': 'company_id'}"/>
+                <filter string="Country" name="group_by_country" context="{'group_by': 'country_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="hotel_property_action" model="ir.actions.act_window">
+        <field name="name">Hotel Properties</field>
+        <field name="res_model">hotel.property</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="hotel_property_view_search"/>
+        <field name="context">{}</field>
+    </record>
+</odoo>

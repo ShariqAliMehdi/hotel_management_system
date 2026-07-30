@@ -1,62 +1,75 @@
-<odoo noupdate="1">
-    <record id="hotel_base_demo_property" model="hotel.property">
+<odoo>
+    <record id="hotel_amenity_wifi" model="hotel.amenity">
+        <field name="name">Wi-Fi</field>
+        <field name="description">High speed wireless internet access.</field>
+    </record>
+
+    <record id="hotel_amenity_tv" model="hotel.amenity">
+        <field name="name">Smart TV</field>
+        <field name="description">Flat-screen smart television with streaming access.</field>
+    </record>
+
+    <record id="hotel_amenity_ac" model="hotel.amenity">
+        <field name="name">Air Conditioning</field>
+        <field name="description">Central climate control system.</field>
+    </record>
+
+    <record id="hotel_tax_city" model="hotel.tax">
+        <field name="name">City Tax</field>
         <field name="company_id" ref="base.main_company"/>
-        <field name="name">Grand Aurora</field>
-        <field name="code">AURORA</field>
-        <field name="email">reservations@grandaurora.example</field>
-        <field name="phone">+1 555 0100</field>
-        <field name="address">123 Aurora Avenue, Cityville</field>
-        <field name="default_checkin_time">14.0</field>
-        <field name="default_checkout_time">11.0</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">5.0</field>
+        <field name="price_include">False</field>
     </record>
 
-    <record id="hotel_base_demo_building_a" model="hotel.building">
-        <field name="property_id" ref="hotel_base_demo_property"/>
-        <field name="name">Main Building</field>
-        <field name="code">MAIN</field>
+    <record id="hotel_demo_property_1" model="hotel.property">
+        <field name="name">Grand Horizon Hotel</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="phone">+1 555 000 111</field>
+        <field name="email">info@grandhorizon.example.com</field>
+        <field name="street">12 Central Avenue</field>
+        <field name="city">Dubai</field>
+        <field name="country_id" ref="base.ae"/>
+        <field name="checkin_time">14.0</field>
+        <field name="checkout_time">12.0</field>
+        <field name="amenity_ids" eval="[(6, 0, [ref('hotel_amenity_wifi'), ref('hotel_amenity_tv')])]"/>
+        <field name="tax_ids" eval="[(6, 0, [ref('hotel_tax_city')])]"/>
     </record>
 
-    <record id="hotel_base_demo_floor_1" model="hotel.floor">
-        <field name="property_id" ref="hotel_base_demo_property"/>
-        <field name="building_id" ref="hotel_base_demo_building_a"/>
-        <field name="name">Floor 1</field>
+    <record id="hotel_demo_building_a" model="hotel.building">
+        <field name="property_id" ref="hotel_demo_property_1"/>
+        <field name="code">A</field>
+        <field name="name">Tower A</field>
         <field name="sequence">10</field>
     </record>
 
-    <record id="hotel_base_demo_amenity_wifi" model="hotel.amenity">
-        <field name="name">Free Wi-Fi</field>
-        <field name="description">High speed internet access in all rooms and common areas.</field>
+    <record id="hotel_demo_floor_a1" model="hotel.floor">
+        <field name="property_id" ref="hotel_demo_property_1"/>
+        <field name="building_id" ref="hotel_demo_building_a"/>
+        <field name="code">A1</field>
+        <field name="name">First Floor</field>
+        <field name="sequence">10</field>
     </record>
 
-    <record id="hotel_base_demo_amenity_breakfast" model="hotel.amenity">
-        <field name="name">Breakfast Included</field>
-        <field name="description">Daily breakfast for registered guests.</field>
+    <record id="hotel_demo_room_category_deluxe" model="hotel.room.category">
+        <field name="property_id" ref="hotel_demo_property_1"/>
+        <field name="code">DLX</field>
+        <field name="name">Deluxe Room</field>
+        <field name="capacity_adult">2</field>
+        <field name="capacity_child">1</field>
+        <field name="base_price">250.0</field>
+        <field name="extra_bed_allowed">True</field>
+        <field name="extra_bed_price">50.0</field>
+        <field name="amenity_ids" eval="[(6, 0, [ref('hotel_amenity_wifi'), ref('hotel_amenity_tv'), ref('hotel_amenity_ac')])]"/>
+        <field name="tax_ids" eval="[(6, 0, [ref('hotel_tax_city')])]"/>
     </record>
 
-    <record id="hotel_base_demo_room_type_standard" model="hotel.room.type">
-        <field name="property_id" ref="hotel_base_demo_property"/>
-        <field name="name">Standard</field>
-        <field name="code">STD</field>
-        <field name="capacity_adults">2</field>
-        <field name="capacity_children">1</field>
-        <field name="base_rate">120.0</field>
-        <field name="amenity_ids" eval="[(6,0,[ref('hotel_base_demo_amenity_wifi'), ref('hotel_base_demo_amenity_breakfast')])]" />
-        <field name="description">&lt;p&gt;Comfortable rooms for city breaks.&lt;/p&gt;</field>
-    </record>
-
-    <record id="hotel_base_demo_tax_city_tax" model="hotel.tax">
-        <field name="company_id" ref="base.main_company"/>
-        <field name="name">City Tax</field>
-        <field name="tax_amount_type">percent</field>
-        <field name="amount">5.0</field>
-        <field name="include_in_rate">False</field>
-    </record>
-
-    <record id="hotel_base_demo_season_peak" model="hotel.seasonal.calendar">
-        <field name="property_id" ref="hotel_base_demo_property"/>
-        <field name="name">Peak Season</field>
+    <record id="hotel_demo_peak_season" model="hotel.season">
+        <field name="name">Peak Summer</field>
+        <field name="property_id" ref="hotel_demo_property_1"/>
+        <field name="date_start">2025-06-01</field>
+        <field name="date_end">2025-08-31</field>
         <field name="season_type">peak</field>
-        <field name="date_from">2026-06-01</field>
-        <field name="date_to">2026-08-31</field>
+        <field name="price_factor">1.25</field>
     </record>
 </odoo>

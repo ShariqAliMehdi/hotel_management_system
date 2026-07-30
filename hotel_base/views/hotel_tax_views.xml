@@ -1,14 +1,14 @@
 <odoo>
-    <record id="hotel_tax_view_tree" model="ir.ui.view">
+    <record id="hotel_tax_view_list" model="ir.ui.view">
         <field name="name">hotel.tax.list</field>
         <field name="model">hotel.tax</field>
         <field name="arch" type="xml">
             <list string="Hotel Taxes">
                 <field name="name"/>
                 <field name="company_id"/>
-                <field name="tax_amount_type"/>
+                <field name="amount_type"/>
                 <field name="amount"/>
-                <field name="include_in_rate"/>
+                <field name="price_include"/>
                 <field name="active"/>
             </list>
         </field>
@@ -19,18 +19,18 @@
         <field name="model">hotel.tax</field>
         <field name="arch" type="xml">
             <form string="Hotel Tax">
-                <header>
-                    <field name="active" widget="boolean_toggle"/>
-                </header>
                 <sheet>
                     <group>
-                        <field name="company_id" required="1"/>
-                        <field name="name" required="1"/>
-                        <field name="tax_amount_type" required="1"/>
-                        <field name="amount"/>
-                        <field name="include_in_rate"/>
-                        <field name="currency_id" readonly="1"/>
-                        <field name="active" invisible="1"/>
+                        <group>
+                            <field name="name"/>
+                            <field name="company_id"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="amount_type"/>
+                            <field name="amount"/>
+                            <field name="price_include"/>
+                        </group>
                     </group>
                 </sheet>
                 <chatter/>
@@ -38,16 +38,26 @@
         </field>
     </record>
 
-    <record id="hotel_tax_search" model="ir.ui.view">
+    <record id="hotel_tax_view_search" model="ir.ui.view">
         <field name="name">hotel.tax.search</field>
         <field name="model">hotel.tax</field>
         <field name="arch" type="xml">
             <search>
                 <field name="name"/>
                 <field name="company_id"/>
-                <filter string="Active" name="active" domain="[('active','=',True)]"/>
-                <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+                <filter string="Active" name="filter_active" domain="[('active', '=', True)]"/>
+                <filter string="Archived" name="filter_archived" domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter string="Company" name="group_by_company" context="{'group_by': 'company_id'}"/>
             </search>
         </field>
+    </record>
+
+    <record id="hotel_tax_action" model="ir.actions.act_window">
+        <field name="name">Hotel Taxes</field>
+        <field name="res_model">hotel.tax</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="hotel_tax_view_search"/>
+        <field name="context">{}</field>
     </record>
 </odoo>
