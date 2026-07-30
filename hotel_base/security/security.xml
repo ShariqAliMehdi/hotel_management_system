@@ -1,0 +1,119 @@
+<odoo>
+    <record id="hotel_base_module_category" model="ir.module.category">
+        <field name="name">Hotel Base</field>
+        <field name="sequence">10</field>
+        <field name="description">Access control for Hotel Base configuration.</field>
+    </record>
+
+    <record id="hotel_base_privilege_manager" model="res.groups.privilege">
+        <field name="name">Hotel Base Manager</field>
+        <field name="category_id" ref="hotel_base_module_category"/>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="hotel_base_privilege_user" model="res.groups.privilege">
+        <field name="name">Hotel Base User</field>
+        <field name="category_id" ref="hotel_base_module_category"/>
+        <field name="sequence">20</field>
+    </record>
+
+    <record id="group_hotel_base_manager" model="res.groups">
+        <field name="name">Hotel Base Manager</field>
+        <field name="category_id" ref="hotel_base_module_category" eval="False"/>
+        <field name="privilege_id" ref="hotel_base_privilege_manager"/>
+        <field name="implied_ids" eval="[]"/>
+    </record>
+
+    <record id="group_hotel_base_user" model="res.groups">
+        <field name="name">Hotel Base User</field>
+        <field name="category_id" ref="hotel_base_module_category" eval="False"/>
+        <field name="privilege_id" ref="hotel_base_privilege_user"/>
+        <field name="implied_ids" eval="[]"/>
+    </record>
+
+    <!-- Record rules will enforce multi-company behavior. -->
+    <record id="hotel_property_record_rule_manager" model="ir.rule">
+        <field name="name">Hotel Property - Manager: company restriction</field>
+        <field name="model_id" ref="model_hotel_property"/>
+        <field name="groups" eval="[(4, ref('hotel_base.group_hotel_base_manager'))]"/>
+        <field name="domain_force">[('company_id', '=', user.company_id.id)]</field>
+    </record>
+
+    <record id="hotel_property_record_rule_user" model="ir.rule">
+        <field name="name">Hotel Property - User: company restriction</field>
+        <field name="model_id" ref="model_hotel_property"/>
+        <field name="groups" eval="[(4, ref('hotel_base.group_hotel_base_user'))]"/>
+        <field name="domain_force">[('company_id', '=', user.company_id.id)]</field>
+    </record>
+
+    <record id="hotel_building_record_rule_manager" model="ir.rule">
+        <field name="name">Hotel Building - Manager: company restriction</field>
+        <field name="model_id" ref="model_hotel_building"/>
+        <field name="groups" eval="[(4, ref('hotel_base.group_hotel_base_manager'))]"/>
+        <field name="domain_force">[('property_id.company_id', '=', user.company_id.id)]</field>
+    </record>
+
+    <record id="hotel_building_record_rule_user" model="ir.rule">
+        <field name="name">Hotel Building - User: company restriction</field>
+        <field name="model_id" ref="model_hotel_building"/>
+        <field name="groups" eval="[(4, ref('hotel_base.group_hotel_base_user'))]"/>
+        <field name="domain_force">[('property_id.company_id', '=', user.company_id.id)]</field>
+    </record>
+
+    <record id="hotel_floor_record_rule_manager" model="ir.rule">
+        <field name="name">Hotel Floor - Manager: company restriction</field>
+        <field name="model_id" ref="model_hotel_floor"/>
+        <field name="groups" eval="[(4, ref('hotel_base.group_hotel_base_manager'))]"/>
+        <field name="domain_force">[('property_id.company_id', '=', user.company_id.id)]</field>
+    </record>
+
+    <record id="hotel_floor_record_rule_user" model="ir.rule">
+        <field name="name">Hotel Floor - User: company restriction</field>
+        <field name="model_id" ref="model_hotel_floor"/>
+        <field name="groups" eval="[(4, ref('hotel_base.group_hotel_base_user'))]"/>
+        <field name="domain_force">[('property_id.company_id', '=', user.company_id.id)]</field>
+    </record>
+
+    <record id="hotel_room_type_record_rule_manager" model="ir.rule">
+        <field name="name">Hotel Room Type - Manager: company restriction</field>
+        <field name="model_id" ref="model_hotel_room_type"/>
+        <field name="groups" eval="[(4, ref('hotel_base.group_hotel_base_manager'))]"/>
+        <field name="domain_force">[('property_id.company_id', '=', user.company_id.id)]</field>
+    </record>
+
+    <record id="hotel_room_type_record_rule_user" model="ir.rule">
+        <field name="name">Hotel Room Type - User: company restriction</field>
+        <field name="model_id" ref="model_hotel_room_type"/>
+        <field name="groups" eval="[(4, ref('hotel_base.group_hotel_base_user'))]"/>
+        <field name="domain_force">[('property_id.company_id', '=', user.company_id.id)]</field>
+    </record>
+
+    <record id="hotel_seasonal_calendar_record_rule_manager" model="ir.rule">
+        <field name="name">Hotel Seasonal Calendar - Manager: company restriction</field>
+        <field name="model_id" ref="model_hotel_seasonal_calendar"/>
+        <field name="groups" eval="[(4, ref('hotel_base.group_hotel_base_manager'))]"/>
+        <field name="domain_force">[('property_id.company_id', '=', user.company_id.id)]</field>
+    </record>
+
+    <record id="hotel_seasonal_calendar_record_rule_user" model="ir.rule">
+        <field name="name">Hotel Seasonal Calendar - User: company restriction</field>
+        <field name="model_id" ref="model_hotel_seasonal_calendar"/>
+        <field name="groups" eval="[(4, ref('hotel_base.group_hotel_base_user'))]"/>
+        <field name="domain_force">[('property_id.company_id', '=', user.company_id.id)]</field>
+    </record>
+
+    <record id="hotel_tax_record_rule_manager" model="ir.rule">
+        <field name="name">Hotel Tax - Manager: company restriction</field>
+        <field name="model_id" ref="model_hotel_tax"/>
+        <field name="groups" eval="[(4, ref('hotel_base.group_hotel_base_manager'))]"/>
+        <field name="domain_force">[('company_id', '=', user.company_id.id)]</field>
+    </record>
+
+    <record id="hotel_tax_record_rule_user" model="ir.rule">
+        <field name="name">Hotel Tax - User: company restriction</field>
+        <field name="model_id" ref="model_hotel_tax"/>
+        <field name="groups" eval="[(4, ref('hotel_base.group_hotel_base_user'))]"/>
+        <field name="domain_force">[('company_id', '=', user.company_id.id)]</field>
+    </record>
+
+</odoo>

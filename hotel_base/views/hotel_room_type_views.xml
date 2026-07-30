@@ -1,0 +1,64 @@
+<odoo>
+    <record id="hotel_room_type_view_tree" model="ir.ui.view">
+        <field name="name">hotel.room.type.list</field>
+        <field name="model">hotel.room.type</field>
+        <field name="arch" type="xml">
+            <list string="Room Types">
+                <field name="name"/>
+                <field name="property_id"/>
+                <field name="capacity_adults"/>
+                <field name="capacity_children"/>
+                <field name="base_rate"/>
+                <field name="amenity_ids" widget="many2many_tags"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="hotel_room_type_view_form" model="ir.ui.view">
+        <field name="name">hotel.room.type.form</field>
+        <field name="model">hotel.room.type</field>
+        <field name="arch" type="xml">
+            <form string="Room Type">
+                <header>
+                    <field name="active" widget="boolean_toggle"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="property_id" required="1"/>
+                        <field name="name" required="1"/>
+                        <field name="code"/>
+                        <field name="base_rate"/>
+                        <field name="currency_id" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="capacity_adults"/>
+                        <field name="capacity_children"/>
+                    </group>
+                    <notebook>
+                        <page string="Amenities">
+                            <field name="amenity_ids" widget="many2many_tags"/>
+                        </page>
+                        <page string="Description">
+                            <field name="description"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="hotel_room_type_search" model="ir.ui.view">
+        <field name="name">hotel.room.type.search</field>
+        <field name="model">hotel.room.type</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="property_id"/>
+                <filter string="Active" name="active" domain="[('active','=',True)]"/>
+                <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+            </search>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,21 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hotel_property_manager,access hotel.property manager,model_hotel_property,hotel_base.group_hotel_base_manager,1,1,1,1
+access_hotel_property_user,access hotel.property user,model_hotel_property,hotel_base.group_hotel_base_user,1,1,1,0
+
+access_hotel_building_manager,access hotel.building manager,model_hotel_building,hotel_base.group_hotel_base_manager,1,1,1,1
+access_hotel_building_user,access hotel.building user,model_hotel_building,hotel_base.group_hotel_base_user,1,1,1,0
+
+access_hotel_floor_manager,access hotel.floor manager,model_hotel_floor,hotel_base.group_hotel_base_manager,1,1,1,1
+access_hotel_floor_user,access hotel.floor user,model_hotel_floor,hotel_base.group_hotel_base_user,1,1,1,0
+
+access_hotel_room_type_manager,access hotel.room.type manager,model_hotel_room_type,hotel_base.group_hotel_base_manager,1,1,1,1
+access_hotel_room_type_user,access hotel.room.type user,model_hotel_room_type,hotel_base.group_hotel_base_user,1,1,1,0
+
+access_hotel_amenity_manager,access hotel.amenity manager,model_hotel_amenity,hotel_base.group_hotel_base_manager,1,1,1,1
+access_hotel_amenity_user,access hotel.amenity user,model_hotel_amenity,hotel_base.group_hotel_base_user,1,1,1,0
+
+access_hotel_tax_manager,access hotel.tax manager,model_hotel_tax,hotel_base.group_hotel_base_manager,1,1,1,1
+access_hotel_tax_user,access hotel.tax user,model_hotel_tax,hotel_base.group_hotel_base_user,1,1,1,0
+
+access_hotel_seasonal_calendar_manager,access hotel.seasonal.calendar manager,model_hotel_seasonal_calendar,hotel_base.group_hotel_base_manager,1,1,1,1
+access_hotel_seasonal_calendar_user,access hotel.seasonal.calendar user,model_hotel_seasonal_calendar,hotel_base.group_hotel_base_user,1,1,1,0

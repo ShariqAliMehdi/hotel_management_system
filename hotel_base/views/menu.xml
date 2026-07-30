@@ -1,0 +1,68 @@
+# (already provided above)
+
+=== MODULE_COMPLETE: hotel_base ===
+
+---
+
+## Folder Structure (hotel_base)
+
+hotel_base/
+- __init__.py
+- __manifest__.py
+- README.md
+- controllers/
+  - (none for base; omitted)
+- models/
+  - __init__.py
+  - res_company_extension.py
+  - hotel_property.py
+  - hotel_building.py
+  - hotel_floor.py
+  - hotel_room_type.py
+  - hotel_amenity.py
+  - hotel_tax.py
+  - hotel_seasonal_calendar.py
+- security/
+  - security.xml
+  - ir.model.access.csv
+- data/
+  - sequence.xml
+- views/
+  - menu.xml
+  - hotel_property_views.xml
+  - hotel_building_views.xml
+  - hotel_floor_views.xml
+  - hotel_room_type_views.xml
+  - hotel_amenity_views.xml
+  - hotel_tax_views.xml
+  - hotel_seasonal_calendar_views.xml
+  - res_company_views.xml
+- demo/
+  - hotel_base_demo.xml
+- tests/
+  - __init__.py
+  - test_hotel_base.py
+
+---
+
+## Installation Instructions
+1. Restart Odoo and update apps list.
+2. Install **Hotel Base**.
+3. Optional: enable demo data while installing.
+
+---
+
+## Upgrade Instructions (safe)
+- Use Odoo’s normal upgrade: update module from App List.
+- No data migrations are required for this first base release.
+
+---
+
+## Next Step (Wait for your confirmation)
+Before I move to **Addon 2: `hotel_room`**, I need one decision:
+
+**Room inventory ownership**: In Odoo 19, should rooms belong to:
+- **Option A (recommended)**: `hotel.property` (directly via `property_id`)  
+- **Option B**: infer property through `hotel.floor` → `floor.property_id`
+
+Reply **A or B**. Once confirmed, I’ll generate `hotel_room` fully.

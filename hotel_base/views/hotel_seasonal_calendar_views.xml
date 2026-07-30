@@ -1,0 +1,53 @@
+<odoo>
+    <record id="hotel_seasonal_calendar_view_tree" model="ir.ui.view">
+        <field name="name">hotel.seasonal.calendar.list</field>
+        <field name="model">hotel.seasonal.calendar</field>
+        <field name="arch" type="xml">
+            <list string="Seasonal Calendars">
+                <field name="name"/>
+                <field name="property_id"/>
+                <field name="season_type"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="hotel_seasonal_calendar_view_form" model="ir.ui.view">
+        <field name="name">hotel.seasonal.calendar.form</field>
+        <field name="model">hotel.seasonal.calendar</field>
+        <field name="arch" type="xml">
+            <form string="Seasonal Calendar">
+                <header>
+                    <field name="active" widget="boolean_toggle"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="property_id" required="1"/>
+                        <field name="name" required="1"/>
+                        <field name="season_type" required="1"/>
+                        <field name="date_from" required="1"/>
+                        <field name="date_to" required="1"/>
+                        <field name="active" invisible="1"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="hotel_seasonal_calendar_search" model="ir.ui.view">
+        <field name="name">hotel.seasonal.calendar.search</field>
+        <field name="model">hotel.seasonal.calendar</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="property_id"/>
+                <field name="season_type"/>
+                <filter string="Active" name="active" domain="[('active','=',True)]"/>
+                <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+            </search>
+        </field>
+    </record>
+</odoo>

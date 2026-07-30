@@ -1,0 +1,31 @@
+{
+    "name": "Hotel Base",
+    "version": "19.0.1.0.0",
+    "category": "Hospitality",
+    "summary": "Core configuration for Hotel Management ERP (properties, buildings, floors, room categories, amenities, taxes, seasonal calendars).",
+    "depends": ["base", "mail", "product", "account", "website"],
+    "license": "LGPL-3",
+    "application": False,
+    "installable": True,
+    "assets": {
+        "web.assets_backend": [],
+        "website.assets": [],
+    },
+    "data": [
+        "security/security.xml",
+        "security/ir.model.access.csv",
+        "data/sequence.xml",
+        "views/hotel_property_views.xml",
+        "views/hotel_building_views.xml",
+        "views/hotel_floor_views.xml",
+        "views/hotel_room_type_views.xml",
+        "views/hotel_amenity_views.xml",
+        "views/hotel_tax_views.xml",
+        "views/hotel_seasonal_calendar_views.xml",
+        "views/menu.xml",
+        "views/res_company_views.xml",
+    ],
+    "demo": [
+        "demo/hotel_base_demo.xml",
+    ],
+}
